@@ -26,15 +26,14 @@ export default function RootLayout() {
       router.replace(Routes.Login)
     }
 
-    SplashScreen.hideAsync().then()
+    setTimeout((): void => {
+      SplashScreen.hideAsync().then()
+    }, 500)
   }
 
   useEffect(() => {
-    // TODO: Fix double re-renders of redirected screen
-
     return auth().onAuthStateChanged(onAuthStateChanged)
   }, [])
-  console.log("Work")
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>

@@ -36,7 +36,7 @@ export const Button: React.FC<IButtonProps> = ({
         onPress={pressHandle}
         {...rest}
       >
-        {!isLoading ? (
+        {!isLoading && variant !== "withIcon" ? (
           <Text style={styles[`${variant}Text`]}>{children}</Text>
         ) : (
           <Text style={styles[`${variant}Text`]}>Loading...</Text>

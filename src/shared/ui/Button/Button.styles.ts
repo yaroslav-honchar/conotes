@@ -18,6 +18,11 @@ export const buttonStyles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
   },
+  withIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 48,
+  },
   primaryText: {
     flex: 1,
     color: Colors.light.text,
