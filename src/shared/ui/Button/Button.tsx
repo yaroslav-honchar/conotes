@@ -1,3 +1,4 @@
+// TODO: To refactor
 import React, { useEffect, useRef } from "react"
 import { Animated, Easing, GestureResponderEvent, Pressable, Text, View } from "react-native"
 

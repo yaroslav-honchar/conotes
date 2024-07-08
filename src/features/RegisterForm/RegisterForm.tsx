@@ -1,16 +1,15 @@
-// TODO: Simplify the component
-
+// TODO: To refactor
 import { Formik, FormikHelpers } from "formik"
 
 import { router } from "expo-router"
 
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth"
 import React, { useRef } from "react"
-import { Alert, Keyboard, TextInput, TouchableWithoutFeedback, View } from "react-native"
+import { Alert, Keyboard, TextInput, View } from "react-native"
 
 import { Routes } from "@/shared/constants"
 import { IRegisterData } from "@/shared/types"
-import { Button, RootLink, ThemedText, ThemedTextInput } from "@/shared/ui"
+import { Button, DismissKeyboardView, RootLink, ThemedText, ThemedTextInput } from "@/shared/ui"
 
 import { RegisterSchema } from "./RegisterForm.scheme"
 import { registerFormStyles as styles } from "./RegisterForm.styles"
@@ -24,15 +23,14 @@ export const RegisterForm: React.FC = () => {
     { setSubmitting }: FormikHelpers<IRegisterData>,
   ): Promise<void> => {
     try {
-      const userCredentials = await auth().createUserWithEmailAndPassword(email, password)
-
-      console.log(userCredentials)
-      // Save user to global state
+      await auth().createUserWithEmailAndPassword(email, password)
 
       router.push(Routes.Home)
     } catch (error: unknown) {
-      if (error instanceof Error &&
-        (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code === "auth/email-already-in-use") {
+      if (
+        error instanceof Error &&
+        (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code === "auth/email-already-in-use"
+      ) {
         Alert.alert(
           "Wrong email!",
           "That email address is already in use. Would you like to sign in?",
@@ -62,7 +60,7 @@ export const RegisterForm: React.FC = () => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <DismissKeyboardView>
       <Formik<IRegisterData>
         initialValues={{ email: "", password: "", confirmPassword: "" }}
         validationSchema={RegisterSchema}
@@ -160,6 +158,6 @@ export const RegisterForm: React.FC = () => {
           </View>
         )}
       </Formik>
-    </TouchableWithoutFeedback>
+    </DismissKeyboardView>
   )
 }

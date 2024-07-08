@@ -1,15 +1,15 @@
-// TODO: Simplify the component
+// TODO: To refactor
 import { Formik, FormikHelpers } from "formik"
 
 import { router } from "expo-router"
 
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth"
 import React, { useRef, useState } from "react"
-import { Alert, Keyboard, Pressable, TextInput, TouchableWithoutFeedback, View } from "react-native"
+import { Alert, Keyboard, Pressable, TextInput, View } from "react-native"
 
 import { Routes } from "@/shared/constants"
 import { ILoginData } from "@/shared/types/login-data.interface"
-import { Button, RootLink, ThemedText, ThemedTextInput } from "@/shared/ui"
+import { Button, DismissKeyboardView, RootLink, ThemedText, ThemedTextInput } from "@/shared/ui"
 
 import { LoginSchema } from "./LoginForm.scheme"
 import { loginFormStyles as styles } from "./LoginForm.styles"
@@ -62,7 +62,7 @@ export const LoginForm: React.FC = () => {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <DismissKeyboardView>
         <Formik<ILoginData>
           initialValues={{ email: "", password: "" }}
           validationSchema={LoginSchema}
@@ -145,7 +145,7 @@ export const LoginForm: React.FC = () => {
             </View>
           )}
         </Formik>
-      </TouchableWithoutFeedback>
+      </DismissKeyboardView>
       <ModalResetPassword
         visible={isResetModal}
         onClose={() => setIsResetModal(false)}

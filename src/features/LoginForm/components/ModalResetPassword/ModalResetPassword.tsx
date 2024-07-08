@@ -2,10 +2,10 @@ import { Formik, FormikHelpers } from "formik"
 
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth"
 import React, { useRef } from "react"
-import { Alert, Keyboard, Modal, TextInput, TouchableWithoutFeedback, View } from "react-native"
+import { Alert, Modal, TextInput, View } from "react-native"
 
 import { IResetPasswordData } from "@/shared/types"
-import { Button, ThemedText, ThemedTextInput } from "@/shared/ui"
+import { Button, DismissKeyboardView, ThemedText, ThemedTextInput } from "@/shared/ui"
 
 import { RootView } from "@/entities/RootView"
 
@@ -69,7 +69,7 @@ export const ModalResetPassword: React.FC<IModalResetPasswordProps> = ({ onClose
       animationType={"fade"}
       {...rest}
     >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <DismissKeyboardView>
         <RootView>
           <Button
             variant={"withIcon"}
@@ -123,7 +123,7 @@ export const ModalResetPassword: React.FC<IModalResetPasswordProps> = ({ onClose
             )}
           </Formik>
         </RootView>
-      </TouchableWithoutFeedback>
+      </DismissKeyboardView>
     </Modal>
   )
 }
