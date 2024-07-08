@@ -1,38 +1,86 @@
-import { Formik } from "formik"
+import { Formik, FormikHelpers } from "formik"
 
-import React from "react"
-import { Keyboard, Modal, TouchableWithoutFeedback, View } from "react-native"
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth"
+import React, { useRef } from "react"
+import { Alert, Keyboard, Modal, TextInput, TouchableWithoutFeedback, View } from "react-native"
 
-import { ILoginData } from "@/shared/types"
+import { IResetPasswordData } from "@/shared/types"
 import { Button, ThemedText, ThemedTextInput } from "@/shared/ui"
 
 import { RootView } from "@/entities/RootView"
 
-import { LoginSchema } from "@/features/LoginForm/LoginForm.scheme"
-
 import { loginFormStyles as styles } from "../../LoginForm.styles"
 
 import { IModalResetPasswordProps } from "./ModalResetPassword.props"
+import { ResetPasswordScheme } from "./ResetPassword.scheme"
 
 export const ModalResetPassword: React.FC<IModalResetPasswordProps> = ({ onClose, ...rest }) => {
-  const submitHandle = (): void => {}
+  const emailInputRef = useRef<TextInput>(null)
 
   const closeHandle = (): void => {
     onClose && onClose()
   }
 
+  const submitHandle = async (
+    { email }: IResetPasswordData,
+    { setSubmitting }: FormikHelpers<IResetPasswordData>,
+  ): Promise<void> => {
+    try {
+      await auth().sendPasswordResetEmail(email)
+
+      Alert.alert("Done!", "We sent you recovery password link on email.", [
+        {
+          text: "Ok",
+          onPress: (): void => {
+            closeHandle()
+          },
+        },
+      ])
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        (error as FirebaseAuthTypes.NativeFirebaseAuthError)?.code === "auth/internal-error"
+      ) {
+        Alert.alert("Wrong email or password!", "", [
+          {
+            text: "Try again",
+            onPress: (): void => {
+              emailInputRef.current?.focus()
+            },
+          },
+        ])
+        return
+      }
+
+      Alert.alert("Oops!", "Something went wrong! Try please later.", [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ])
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <Modal
       presentationStyle={"fullScreen"}
-      animationType={"slide"}
+      animationType={"fade"}
       {...rest}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <RootView>
-          <Button onPress={closeHandle}>Go back</Button>
-          <Formik<ILoginData>
-            initialValues={{ email: "", password: "" }}
-            validationSchema={LoginSchema}
+          <Button
+            variant={"withIcon"}
+            icon={"left"}
+            onPress={closeHandle}
+          >
+            Go back
+          </Button>
+          <Formik<IResetPasswordData>
+            initialValues={{ email: "" }}
+            validationSchema={ResetPasswordScheme}
             onSubmit={submitHandle}
           >
             {({ handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting }) => (
@@ -46,6 +94,7 @@ export const ModalResetPassword: React.FC<IModalResetPasswordProps> = ({ onClose
 
                 <View>
                   <ThemedTextInput
+                    ref={emailInputRef}
                     placeholder={"Email"}
                     keyboardType={"email-address"}
                     textContentType={"emailAddress"}

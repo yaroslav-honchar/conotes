@@ -25,9 +25,8 @@ export const LoginForm: React.FC = () => {
     { setSubmitting }: FormikHelpers<ILoginData>,
   ): Promise<void> => {
     try {
-      const userCredentials = await auth().signInWithEmailAndPassword(email, password)
+      await auth().signInWithEmailAndPassword(email, password)
 
-      console.log(userCredentials)
       router.push(Routes.Home)
     } catch (error: unknown) {
       if (
@@ -147,7 +146,10 @@ export const LoginForm: React.FC = () => {
           )}
         </Formik>
       </TouchableWithoutFeedback>
-      <ModalResetPassword visible={isResetModal} onClose={() => setIsResetModal(false)} />
+      <ModalResetPassword
+        visible={isResetModal}
+        onClose={() => setIsResetModal(false)}
+      />
     </>
   )
 }

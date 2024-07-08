@@ -19,6 +19,9 @@ export const buttonStyles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   withIcon: {
+    padding: 0,
+    alignItems: "center",
+    justifyContent: "center",
     width: 48,
     height: 48,
     borderRadius: 48,
@@ -31,7 +34,19 @@ export const buttonStyles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+  icon: {
+    color: Colors.light.text,
+  },
   loading: {
     opacity: 0.75,
+  },
+  spinner: {
+    width: 28,
+    height: 28,
+    margin: "auto",
+    borderRadius: 20,
+    borderColor: Colors.light.text,
+    borderWidth: 4,
+    borderEndWidth: 0,
   },
 })
