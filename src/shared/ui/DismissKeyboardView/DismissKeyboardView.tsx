@@ -1,15 +1,14 @@
 import React, { PropsWithChildren } from "react"
-import { Keyboard, ScrollView, TouchableWithoutFeedback } from "react-native"
+import { Keyboard, TouchableWithoutFeedback, View } from "react-native"
 
 export const DismissKeyboardView: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <ScrollView style={{ flex: 1 }}>
       <TouchableWithoutFeedback
+        style={{ flex: 1 }}
         onPress={() => Keyboard.dismiss()}
         accessible={false}
       >
-        {children}
+        <View style={{ flex: 1 }}>{children}</View>
       </TouchableWithoutFeedback>
-    </ScrollView>
   )
 }
