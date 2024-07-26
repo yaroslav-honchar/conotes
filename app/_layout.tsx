@@ -40,7 +40,7 @@ export default function RootLayout() {
       <StatusBar barStyle={colorScheme === "light" ? "dark-content" : "light-content"} />
       <Stack>
         <Stack.Screen
-          name={Routes.getPathForRoot("Home")}
+          name={"(tabs)"}
           options={{
             ...commonStackScreenOptions,
             animation: "fade_from_bottom",
