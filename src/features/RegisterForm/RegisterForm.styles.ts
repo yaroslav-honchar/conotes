@@ -12,5 +12,5 @@ export const registerFormStyles = StyleSheet.create({
   },
   error: {
     marginTop: 8,
-  }
+  },
 })

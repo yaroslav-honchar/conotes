@@ -11,7 +11,7 @@ export default function IndexPage() {
       <View
         style={{
           flex: 1,
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         <ThemedText

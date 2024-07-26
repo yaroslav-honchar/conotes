@@ -12,5 +12,5 @@ export const loginFormStyles = StyleSheet.create({
   },
   error: {
     marginTop: 8,
-  }
+  },
 })

@@ -17,9 +17,9 @@ export const themedTextInputStyles = StyleSheet.create({
     borderColor: Colors.light.accent,
   },
   light: {
-    color: Colors.light.text
+    color: Colors.light.text,
   },
   dark: {
-    color: Colors.dark.text
-  }
+    color: Colors.dark.text,
+  },
 })
