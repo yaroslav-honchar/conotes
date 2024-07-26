@@ -1,1 +1,3 @@
-export interface ISearchProps {}
+export interface ISearchProps {
+  onChange?: (value: string) => void
+}
