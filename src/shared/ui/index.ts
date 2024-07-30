@@ -1,3 +1,4 @@
+export { Avatar } from "./Avatar/Avatar"
 export { ThemedText } from "./ThemedText/ThemedText"
 export { ThemedTextInput } from "./ThemedTextInput/ThemedTextInput"
 export { ThemedView } from "./ThemedView/ThemedView"

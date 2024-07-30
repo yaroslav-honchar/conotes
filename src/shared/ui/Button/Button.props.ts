@@ -6,7 +6,7 @@ export interface IButtonProps extends PressableProps {
   icon?: AntIconsType
   style?: StyleProp<ViewStyle>
   isLoading?: boolean
-  children: ReactNode
+  children?: ReactNode
 }
 
 type AntIconsType =
